@@ -23,13 +23,14 @@ class Categoria(models.Model):
         return self.Nombre
 
 class Producto(models.Model):
-    Codigo = models.AutoField(primary_key=True)
+    Codigo = models.IntegerField(primary_key=True)
     Nombre = models.CharField(max_length=50)
     Marca = models.ForeignKey(Marca, on_delete=models.CASCADE)
     Categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE)
     Formato = models.ForeignKey(Formato, on_delete=models.CASCADE)
     Precio = models.IntegerField(default=0)
     Stock = models.IntegerField(default=0)
+    Descripcion = models.TextField(max_length=500, default="Descripción del producto")
 
     def __str__(self):
         return self.Nombre+" "+self.Marca+" "+self.Formato
