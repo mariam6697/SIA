@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1><a>Ventas por mes</a></h1>
+<div id="menu">
+    {% for year in years %}
+    <a class="bold">Año {{ year }}</a><br />
+    <div style="display: none">
+        {% for month in months %}
+        &nbsp;<a href="{% url 'venta_month' year=year month=month%}">
+            {% if month == 1 %}
+            Enero
+            {% elif month == 2 %}
+            Febrero
+            {% elif month == 3 %}
+            Marzo
+            {% elif month == 4 %}
+            Abril
+            {% elif month == 5 %}
+            Mayo
+            {% elif month == 6 %}
+            Junio
+            {% elif month == 7 %}
+            Julio
+            {% elif month == 8 %}
+            Agosto
+            {% elif month == 9 %}
+            Septiembre
+            {% elif month == 10 %}
+            Octubre
+            {% elif month == 11 %}
+            Noviembre
+            {% else %}
+            Diciembre
+            {% endif %}
+        </a><br />
+        {% endfor %}
+    </div>
+    {% endfor %}
+</div>
+<script type="text/javascript">
+    $('#menu > a').click(function(){
+        $(this).next().next().slideToggle();
+        return false;
+    });
+</script>
+{% endblock %}

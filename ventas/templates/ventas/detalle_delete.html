@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1>¿Eliminar producto de la venta?</h1>
+    <form method="POST" class="detalle-form">{% csrf_token %}
+        <p>
+            {{ detalle.Producto.Nombre }} x {{ detalle.Cantidad }}<br/>
+            Monto a pagar: ${{ detalle.TotalDetalle }}<br/>
+            Presione 'aceptar' para eliminar el producto de la lista de venta<br/>
+            {{ form.as_p }}
+        </p>
+        <button type="submit" class="btn btn-outline-success btn-sm">Aceptar</button>
+        <button type="button" class="btn btn-outline-danger btn-sm" onclick="window.history.back()">Cancelar</button>
+    </form>
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1><a>Ventas por año</a></h1>
+<ul>
+    {% for year in years %}
+    <div class="year">
+            <li><a href="{% url 'venta_year' year=year %}"> {{ year }}</a></li>
+        </div>
+    {% endfor %}
+</ul>
+{% endblock %}

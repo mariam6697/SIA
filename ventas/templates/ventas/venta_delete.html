@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>¿Eliminar venta?</h1>
+<form method="POST" class="venta-form">{% csrf_token %}
+    <p>
+        Venta N°{{ venta.Codigo }} | Fecha: {{ venta.Fecha }}<br />
+        Monto a pagar: ${{ venta.TotalAPagar }}<br/>
+        Presione 'aceptar' para eliminar la venta <br/>
+        {{ form.as_p }}
+    </p>
+    <button type="submit" class="btn btn-outline-success btn-sm">Aceptar</button>
+    <button type="button" class="btn btn-outline-danger btn-sm" onclick="window.history.back()">Cancelar</button>
+</form>
+{% endblock %}

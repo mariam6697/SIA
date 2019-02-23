@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load humanize %}
+<h1><a>Ventas del año {{ year }}</a></h1>
+{% if ventas %}
+    <table class="table table-striped table-hover table-sm" id="vaño">
+        <thead>
+            <tr>
+                <th>N°</th>
+                <th>Fecha</th>
+                <th>Monto</th>
+                <th>Tipo de pago</th>
+                <th>Vendedor</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for venta in ventas %}
+            <tr>
+                <td>{{ venta.Codigo }}</td>
+                <td><a href="{% url 'venta_detail' pk=venta.pk %}">{{ venta.Fecha }} a las {{ venta.Hora }}</a></td>
+                <td>${{ venta.TotalAPagar|intcomma }}</td>
+                <td>{{ venta.TipoPago }}</td>
+                <td>{{ venta.Vendedor }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <script type="text/javascript">
+    $(document).ready(function() {
+        $('#vaño').dataTable( {
+            language: {
+                'url': '//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json'
+            }
+        } );
+    } );
+    </script>
+    <h5>Estadísticas del mes</h5>
+    <h6>Número de ventas</h6>
+    <canvas id="chartventas" width="100%" height="50%"></canvas>
+    <h6>Ingresos</h6>
+    <p class="font-weight-bold">La recaudación de este mes corresponde a: <verde>${{ rec|intcomma }}</verde></p>
+    <canvas id="chartingresos" width="100%" height="50%"></canvas>
+    <script>
+        var meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+        var numventas = JSON.parse("{{ numventas }}");
+        var ctx = document.getElementById('chartventas').getContext('2d');
+        var chart = new Chart(ctx, {
+            // The type of chart we want to create
+            type: 'line',
+            // The data for our dataset
+            data: {
+                labels: meses,
+                datasets: [{
+                    label: "Ventas",
+                    backgroundColor: 'rgba(46, 23, 96, 0.25)',
+                    borderColor: '#191930',
+                    data: numventas,
+                }]
+            },
+            // Configuration options go here
+            options: {
+                scales: {
+                    yAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Número de ventas'
+                        }
+                    }],
+                    xAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Meses del año'
+                        }
+                    }],
+                }
+            }
+        });
+    </script>
+    <script>
+        var meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+        var ingresos = JSON.parse("{{ ingresos }}");
+        var ctx = document.getElementById('chartingresos').getContext('2d');
+        var chart = new Chart(ctx, {
+            // The type of chart we want to create
+            type: 'line',
+            // The data for our dataset
+            data: {
+                labels: meses,
+                datasets: [{
+                    label: "Ingresos",
+                    backgroundColor: 'rgba(255, 69, 0, 0.25)',
+                    borderColor: '#ff4500',
+                    data: ingresos
+                }]
+            },
+            // Configuration options go here
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            // Include a dollar sign in the ticks
+                            callback: function(value, index, values) {
+                                return '$' + value;
+                            }
+                        },
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Ingresos (en pesos)'
+                        }
+                    }],
+                    xAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Meses del año'
+                        }
+                    }],
+                }
+            }
+        });
+    </script>
+{% else %}
+<p>No hay ventas registradas para el año {{ year }}.</p>
+{% endif %}
+{% endblock %}

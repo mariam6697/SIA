@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load humanize %}
+<h1><a>Ventas por día</a></h1>
+{% if error %}
+    <div class="alert alert-warning" role="alert">
+        No hay ventas registradas para ese día. Por favor ingrese otra fecha.
+    </div>
+{% endif %}
+<p>Seleccione una fecha para mostrar las ventas registradas en dicho día.</p>
+<form method="POST" class="fecha-form">{% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-outline-success btn-sm">Aceptar</button>
+    <button type="button" class="btn btn-outline-danger btn-sm" onclick="window.history.back()">Regresar</button>
+</form>
+{% if ventas %}
+<h4>Ventas del día {{ fecha }}</h4>
+    <table class="table table-striped table-hover table-sm" id="vday">
+        <thead>
+            <tr>
+                <th>N°</th>
+                <th>Fecha</th>
+                <th>Monto</th>
+                <th>Tipo de pago</th>
+                <th>Vendedor</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for venta in ventas %}
+            <tr>
+                <td>{{ venta.Codigo }}</td>
+                <td><a href="{% url 'venta_detail' pk=venta.pk %}">{{ venta.Fecha }} a las {{ venta.Hora }}</a></td>
+                <td>${{ venta.TotalAPagar|intcomma }}</td>
+                <td>{{ venta.TipoPago }}</td>
+                <td>{{ venta.Vendedor }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#vday').dataTable( {
+                language: {
+                    'url': '//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json'
+                }
+            });
+        });
+    </script>
+    <h5>Estadísticas del día</h5>
+    <p class="font-weight-bold">La recaudación de este día corresponde a: <verde>${{ rec|intcomma }}</verde></p>
+{% endif %}
+{% endblock %}

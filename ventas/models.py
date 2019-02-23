@@ -3,7 +3,7 @@ from datetime import date, datetime
 from inventario.models import Producto
 
 class TipoPago(models.Model):
-    Codigo = models.IntegerField(primary_key=True)
+    Codigo = models.AutoField(primary_key=True)
     Nombre = models.CharField(max_length=50)
 
     def __str__(self):

@@ -33,4 +33,4 @@ class Producto(models.Model):
     Descripcion = models.TextField(max_length=500, default="Descripción del producto")
 
     def __str__(self):
-        return self.Nombre+" "+self.Marca+" "+self.Formato
+        return self.Nombre+" "+self.Formato.Unidades+" "+self.Formato.Descripcion

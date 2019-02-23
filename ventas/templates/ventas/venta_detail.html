@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load humanize %}
+<h1>Ventas</h1>
+<div class="venta" id="ventad">
+    <h3>Venta N°{{ venta.Codigo }} | Fecha: {{ venta.Fecha }}</h3>
+    {% if venta.Estado == False %}
+    <a type="button" class="btn btn-success btn-sm" href="{% url 'venta_edit' pk=venta.pk %}">Editar</a>
+    <a type="button" class="btn btn-danger btn-sm" href="{% url 'venta_delete' pk=venta.pk %}">Eliminar</a>
+    {% endif %}
+    <ul>
+        <li>Total a pagar: ${{ venta.TotalAPagar|intcomma }}</li>
+        <li>Atendido por: {{ venta.Vendedor }}</li>
+        <li>Hora: {{ venta.Hora }}</li>
+        <li>Método de pago: {{ venta.TipoPago }}</li>
+        <li>Estado: {% if venta.Estado == True %} <verde>Pago realizado</verde> {% else %} <rojo>Pago no realizado</rojo> {% endif %} </li>
+    </ul>
+    {% if venta.Estado == False %}
+        <p><a type="button" class="btn btn-outline-primary btn-sm" href="{% url 'venta_pago' pk=venta.pk %}">Confirmar pago</a></p>
+    {% endif %}
+</div>
+<h4><a>Detalle de productos</a></h4>
+{% if venta.Estado == False %}
+    {% if error %}
+    <div class="alert alert-warning" role="alert">
+        La cantidad ingresada supera al stock del producto en bodega. Actualmente sólo hay {{ stock }} unidades de {{ producto }}.
+    </div>
+    {% endif %}
+    <div class="container"><div class="row"><form method="POST" class="detalle-form" id="detalle">{% csrf_token %}
+        {% for field in form  %}
+            {{ field }}
+        {% endfor %}
+        <button type="submit" class="btn btn-outline-success btn-sm">Aceptar</button>
+    </form></div></div>
+{% endif %}
+{% if detalles %}
+    <table class="tabled" style="width:80%" align="left">
+        <tr class="tabled">
+            <th class="tabled">Producto</th>
+            <th class="tabled">Precio</th>
+            <th class="tabled">Cantidad</th>
+            <th class="tabled">Total</th>
+            <th class="tabled"> </th>
+        </tr>
+        {% for detalle in detalles %}
+        <tr class="tabled">
+            <td class="tabled">{{ detalle.Producto.Nombre }}</td>
+            <td class="tabled">${{ detalle.Producto.Precio|intcomma }}</td>
+            <td class="tabled">x{{ detalle.Cantidad }}</td>
+            <td class="tabled">${{ detalle.TotalDetalle|intcomma }}</td>
+            <td class="tabled">
+                {% if detalle.Estado == False %}
+                    <a type="button" class="btn btn-outline-success btn-sm" href="{% url 'detalle_edit' pk=detalle.pk %}">Editar</a>
+                    <a type="button" class="btn btn-outline-danger btn-sm" href="{% url 'detalle_delete' pk=detalle.pk %}">Eliminar</a>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    <br />
+{% else %}
+    <p>No hay productos actualmente ingresados en esta venta.</p>
+{% endif %}
+<script>var idventa = JSON.parse("{{ idvent }}");</script>
+{% endblock %}

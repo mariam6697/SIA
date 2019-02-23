@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1>Añadir producto a venta</h1>
+    {% if error %}
+    <div class="alert alert-warning" role="alert">
+        La cantidad ingresada supera al stock del producto en bodega. Actualmente sólo hay {{ stock }} unidades de {{ producto }}.
+    </div>
+    {% endif %}
+    <form method="POST" class="detalle-form">{% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-outline-success btn-sm">Aceptar</button>
+        <button type="button" class="btn btn-outline-danger btn-sm" onclick="window.history.back()">Cancelar</button>
+    </form>
+{% endblock %}

@@ -1,0 +1,128 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Ventas</h1>
+<h3>Registro de ventas</h3>
+<div class="d-flex flex-row flex-wrap">
+    <div class="card card-block col-md-4">
+        <div class="card-body">
+            <h5 class="card-title">Todas las ventas</h5>
+            <h6 class="card-subtitle mb-2 text-muted">Todas las ventas registradas.</h6>
+            <a href="/ventas/ventas" class="card-link">Mostrar</a>
+        </div>
+    </div>
+    <div class="card card-block col-md-4">
+        <div class="card-body">
+            <h5 class="card-title">Ventas diarias</h5>
+            <h6 class="card-subtitle mb-2 text-muted">Filtra las ventas por día.</h6>
+            <a href="/ventas/day" class="card-link">Mostrar</a>
+        </div>
+    </div>
+    <div class="card card-block col-md-4">
+        <div class="card-body">
+            <h5 class="card-title">Ventas mensuales</h5>
+            <h6 class="card-subtitle mb-2 text-muted">Filtra las ventas por mes.</h6>
+            <a href="/ventas/month" class="card-link">Mostrar</a>
+        </div>
+    </div>
+    <div class="card card-block col-md-4">
+        <div class="card-body">
+            <h5 class="card-title">Ventas anuales</h5>
+            <h6 class="card-subtitle mb-2 text-muted">Filtra las ventas por año.</h6>
+            <a href="/ventas/year" class="card-link">Mostrar</a>
+        </div>
+    </div>
+    <div class="card card-block col-md-4">
+        <div class="card-body">
+            <h5 class="card-title">Rango de fecha</h5>
+            <h6 class="card-subtitle mb-2 text-muted">Ventas en un periodo específico.</h6>
+            <a href="/ventas/daterange" class="card-link">Mostrar</a>
+        </div>
+    </div>
+</div>
+
+<h3>Estadísticas de este mes</h3>
+<h4>Número de ventas</h4>
+<canvas id="chartventas" width="100%" height="50%"></canvas>
+
+<h4>Ingresos</h4>
+<canvas id="chartingresos" width="100%" height="50%"></canvas>
+
+<script>
+    var dias = JSON.parse("{{ dias }}");
+    var numventas = JSON.parse("{{ numventas }}");
+    var ctx = document.getElementById('chartventas').getContext('2d');
+    var chart = new Chart(ctx, {
+        // The type of chart we want to create
+        type: 'line',
+        // The data for our dataset
+        data: {
+            labels: dias,
+            datasets: [{
+                label: "Ventas",
+                backgroundColor: 'rgba(46, 23, 96, 0.25)',
+                borderColor: '#191930',
+                data: numventas,
+            }]
+        },
+        // Configuration options go here
+        options: {
+            scales: {
+                yAxes: [{
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Número de ventas'
+                    }
+                }],
+                xAxes: [{
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Días del mes'
+                    }
+                }],
+            }
+        }
+    });
+</script>
+<script>
+    var dias = JSON.parse("{{ dias }}");
+    var ingresos = JSON.parse("{{ ingresos }}");
+    var ctx = document.getElementById('chartingresos').getContext('2d');
+    var chart = new Chart(ctx, {
+        // The type of chart we want to create
+        type: 'line',
+        // The data for our dataset
+        data: {
+            labels: dias,
+            datasets: [{
+                label: "Ingresos",
+                backgroundColor: 'rgba(255, 69, 0, 0.25)',
+                borderColor: '#ff4500',
+                data: ingresos
+            }]
+        },
+        // Configuration options go here
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        // Include a dollar sign in the ticks
+                        callback: function(value, index, values) {
+                            return '$' + value;
+                        }
+                    },
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Ingresos (en pesos)'
+                    }
+                }],
+                xAxes: [{
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Días del mes'
+                    }
+                }],
+            }
+        }
+    });
+</script>
+{% endblock %}
