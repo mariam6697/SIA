@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Editar producto</h1>
+    <form method="post" class="producto-form">
+        {% csrf_token %}
+        <p>
+        {{ producto.Nombre }} | Código: {{ producto.Codigo }} </br>
+        {{ form.as_p }}
+        Presione 'aceptar' para confirmar los cambios a este producto.
+        </p>
+        <button type="submit" class="btn btn-outline-success btn-sm">Aceptar</button>
+        <button type="button" class="btn btn-outline-danger btn-sm" onclick="window.history.back()">Cancelar</button>
+    </form>
+{% endblock %}

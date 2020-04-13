@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1><a>Pedidos</a></h1>
+<div class="pedido">
+    <h3>Pedido N°{{ pedido.Codigo }} | Fecha: {{ pedido.Fecha }}</h3>
+    {% if pedido.Estado == False %}
+        <a type="button" class="btn btn-success btn-sm" href="{% url 'pedido_edit' pk=pedido.pk %}">Editar</a>
+        <a type="button" class="btn btn-danger btn-sm" href="{% url 'pedido_delete' pk=pedido.pk %}">Eliminar</a>
+    {% endif %}
+    <ul>
+        <li>Proveedor: {{ pedido.Proveedor }}</li>
+        <li>Ingresado por: {{ pedido.Operador }}</li>
+        <li>Estado: {% if pedido.Estado == True %} <verde>Ingresado a bodega</verde> {% else %} <rojo>No ingresado a bodega</rojo> {% endif %} </li>
+    </ul>
+    {% if pedido.Estado == False %}
+        <p><a type="button" class="btn btn-outline-primary btn-sm" href="{% url 'pedido_ingresado' pk=pedido.pk %}">Ingresar a bodega</a></p>
+    {% endif %}
+</div>
+<h4><a>Productos ingresados</a></h4>
+{% if pedido.Estado == False %}
+    <p><a type="button" class="btn btn-primary btn-sm" href="{% url 'ingreso_new' pk=pedido.pk %}">+ Añadir producto</a></p>
+{% endif %}
+{% if ingresos %}
+    <table class="tabled" style="width:80%" align="left">
+        <tr class="tabled">
+            <th class="tabled">Producto</th>
+            <th class="tabled">Cantidad</th>
+            <th class="tabled"> </th>
+        </tr>
+        {% for ingreso in ingresos %}
+        <tr class="tabled">
+            <td class="tabled">{{ ingreso.Producto.Nombre }}
+            <td class="tabled">x{{ ingreso.Cantidad }}</td>
+            <td class="tabled">
+                {% if ingreso.Estado == False %}
+                    <a type="button" class="btn btn-outline-success btn-sm" href="{% url 'ingreso_edit' pk=ingreso.pk %}">Editar</a>
+                    <a type="button" class="btn btn-outline-danger btn-sm" href="{% url 'ingreso_delete' pk=ingreso.pk %}">Eliminar</a>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+{% else %}
+    <p>No hay productos en este ingreso de bodega.</p>
+{% endif %}
+{% endblock %}

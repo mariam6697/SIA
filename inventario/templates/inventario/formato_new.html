@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Nuevo formato de productos</h1>
+    <form method="post" class="formato-form">
+        {% csrf_token %}
+        {{ form.as_p }}
+        </p>
+        <button type="submit" class="btn btn-outline-success btn-sm">Aceptar</button>
+        <button type="button" class="btn btn-outline-danger btn-sm" onclick="window.history.back()">Cancelar</button>
+    </form>
+{% endblock %}

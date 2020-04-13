@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Inventario</h1>
+<div class="d-flex flex-row flex-wrap">
+    <div class="card card-block col-md-4">
+        <div class="card-body">
+            <h5 class="card-title">Todos los productos</h5>
+            <h6 class="card-subtitle mb-2 text-muted" >Todos los productos registrados y su stock</h6>
+            <a href="/inventario/productos" class="card-link">Ver</a>
+        </div>
+    </div>
+    <div class="card card-block col-md-4">
+        <div class="card-body">
+            <h5 class="card-title">Pedidos a distribuidores</h5>
+            <h6 class="card-subtitle mb-2 text-muted" >Registro de pedidos anteriores y añadir proveedores nuevos</h6>
+            <a href="/inventario/pedidos" class="card-link">Pedidos anteriores</a>
+            </br>
+            <a href="/inventario/proveedor" class="card-link">Nuevo proveedor</a>
+        </div>
+    </div>
+    <div class="card card-block col-md-4">
+        <div class="card-body">
+            <h5 class="card-title">Productos nuevos</h5>
+            <h6 class="card-subtitle mb-2 text-muted" >Camino de como ingresar un producto nuevo</h6>
+            <a href="/inventario/formato/new" class="card-link">Nuevo formato</a>
+            </br>
+            <a href="/inventario/producto/new/" class="card-link">Nuevo producto</a>
+        </div>
+    </div>
+</div>
+</br>
+{% endblock %}

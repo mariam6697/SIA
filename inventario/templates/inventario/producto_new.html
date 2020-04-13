@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Ingresar nuevo producto</h1>
+<form method="POST" class="producto-form">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-outline-success btn-sm">Ingresar</button>
+    <button type="button" class="btn btn-danger btn-sm" onclick="window.history.back()">Cancelar</button>
+</form>
+{% endblock %}

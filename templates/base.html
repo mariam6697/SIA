@@ -1,4 +1,4 @@
-{% load staticfiles %}
+{% load static %}
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -13,41 +13,57 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="robots" content="NONE,NOARCHIVE">
 </head>
-<body>
+<body><div class="parallax">
 <script src="https://code.jquery.com/jquery-2.1.0.min.js"></script>
 <script src="https://datatables.net/download/build/nightly/jquery.dataTables.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.js"></script>
-<nav class="navbar navbar-expand-lg navbar-dark justify-content-between" style="background-color: #282E34;">
-    <a class="navbar-brand" href="/">Sist. de Info.</a>
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav">
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="/inventario" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Inventario
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Something else here</a>
+<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #282E34;">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" href="#">
+        <img src="/static/img/pp.png" width="30" height="30" class="d-inline-block align-top" alt="">
+        Sist. de Info.
+    </a>
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li class="dropdown">
+                <a class="nav-link" href="/inventario">Inventario</a>
+                <div class="dropdown-content">
+                    <a href="/inventario/producto/new">Nuevo producto</a>
+                    <a href="/inventario/productos">Productos</a>
+                    <!--<a href="/inventario/productos/stock/">Stock</a>-->
+                    <a href="/inventario/pedidos/">Pedidos</a>
+                    <a href="/inventario/formato/new">Nuevo formato</a>
+                    <a href="/inventario/proveedor/new">Nuevo proveedor</a>
                 </div>
             </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="/ventas" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Ventas
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="/ventas">Panel de ventas</a>
-                    <a class="dropdown-item" href="/ventas/venta/new">Nueva venta</a>
+            <li class="dropdown">
+                <a class="nav-link" href="/ventas">Ventas</a>
+                <div class="dropdown-content">
+                    <a href="/ventas/venta/new">Añadir venta</a>
+                    <a href="/ventas/day">Ventas por día</a>
+                    <a href="/ventas/month">Ventas por mes</a>
+                    <a href="/ventas/year/">Ventas por año</a>
                 </div>
             </li>
-            <a class="nav-item nav-link" href="#">Contacto</a>
-      </div>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Usuarios</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/salir">Cerrar sesión</a>
+
+            </li>
+        </ul>
+        <!--<form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Ingrese búsqueda" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+        </form>-->
     </div>
 </nav>
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-8" style="background-color: #ffffff; margin: auto; border-radius: 5px">
+        <div class="col-md-8" style="background-color: #ffffff; margin: auto;">
             {% block content %}
             {% endblock %}
             <br>
@@ -57,11 +73,11 @@
 <br><br>
 <footer>
     Sangre x sangre waton bairon (TM) 2099<br />
-    Send nudes: <a href="mailto:mariam.maldonado.marin@gmail.com">here<3</a>
+    Send nubes: <a href="mailto:mariam.maldonado.marin@gmail.com">here<3</a>
 </footer>
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 <script src="{% static 'js/keyboard_shortcuts.js' %}"></script>
-</body>
+</div></body>
 </html>

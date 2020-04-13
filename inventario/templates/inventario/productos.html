@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Lista de productos disponibles</h1>
+<table class="table table-striped table-hover table-sm" id="listprod">
+    <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Producto</th>
+            <th scope="col">Formato</th>
+            <th scope="col">Precio</th>
+            <th scope="col">Stock</th>
+            <th scope="col">Acción</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for producto in productos %}
+        <tr>
+            <td>{{ producto.Codigo }}</td>
+            <td>{{ producto.Marca}} {{producto.Nombre }}</td>
+            <td>{{ producto.Formato }}</td>
+            <td>{{ producto.Precio }}</td>
+            <td>
+                {% if producto.Stock < 11 %}
+                <rojo>{{ producto.Stock }}</rojo>
+                {% elif producto.Stock > 10 and producto.Stock < 50 %}
+                <naranjo>{{ producto.Stock }}</naranjo>
+                {% else %}
+                <verde>{{ producto.Stock }}</verde>
+                {% endif %}
+            </td>
+            <td><a type="button" class="btn btn-warning btn-sm" href="{% url 'producto_delete' pk=item.pk %}">Eliminar</a><a type="button" class="btn btn-secondary btn-sm" href="{% url 'precio_edit' pk=item.pk %}">Editar</a></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#listprod').dataTable( {
+            language: {
+                'url': '//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json'
+            }
+        } );
+    } );
+</script>
+{% endblock %}

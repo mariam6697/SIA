@@ -70,8 +70,10 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'SIA.wsgi.application'
+LOGIN_REDIRECT_URL = '/inventario'
+LOGOUT_REDIRECT_URL = '/'
 
+WSGI_APPLICATION = 'SIA.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
@@ -79,9 +81,9 @@ WSGI_APPLICATION = 'SIA.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'SIA_DB',
-        'USER': 'User',
-        'PASSWORD': 'Admin1234',
+        'NAME': 'sia',
+        'USER': 'admin',
+        'PASSWORD': '12345',
         'HOST': 'localhost',
         'PORT': '',
     }

@@ -1,0 +1,16 @@
+body, html{
+    height: 100%;
+    margin: 0;
+    width: 100%;
+}
+
+.parallax {
+  position: relative;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-image: url(/static/img/background.jpg);
+  background-color: #062c33;
+  min-height: 100%;
+}
