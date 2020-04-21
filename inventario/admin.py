@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Formato, Marca, Categoria, Producto
+from .models import Formato, Marca, Categoria, Producto, Proveedor
 
 class FormatoAdmin(admin.ModelAdmin):
     fields = ['Unidades', 'Descripcion',]
@@ -24,3 +24,9 @@ class ProductoAdmin(admin.ModelAdmin):
     list_display = ('Codigo', 'Nombre', 'Marca', 'Categoria', 'Formato', 'Precio', 'Stock',)
 
 admin.site.register(Producto, ProductoAdmin)
+
+class ProveedorAdmin(admin.ModelAdmin):
+    fields = ['Codigo', 'Rut', 'Nombre', 'Telefono',]
+    list_display = ('Codigo', 'Nombre', 'Rut', 'Telefono',)
+
+admin.site.register(Proveedor, ProveedorAdmin)

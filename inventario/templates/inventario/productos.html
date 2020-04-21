@@ -28,7 +28,7 @@
                 <verde>{{ producto.Stock }}</verde>
                 {% endif %}
             </td>
-            <td><a type="button" class="btn btn-warning btn-sm" href="{% url 'producto_delete' pk=item.pk %}">Eliminar</a><a type="button" class="btn btn-secondary btn-sm" href="{% url 'precio_edit' pk=item.pk %}">Editar</a></td>
+            <td><a type="button" class="btn btn-warning btn-sm" href="{% url 'producto_delete' pk=producto.pk %}">Eliminar</a><a type="button" class="btn btn-secondary btn-sm" href="{% url 'producto_edit' pk=producto.pk %}">Editar</a></td>
         </tr>
         {% endfor %}
     </tbody>

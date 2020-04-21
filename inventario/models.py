@@ -24,7 +24,7 @@ class Categoria(models.Model):
         return self.Nombre
 
 class Producto(models.Model):
-    Codigo = models.IntegerField(primary_key=True)
+    Codigo = models.AutoField(primary_key=True)
     Nombre = models.CharField(max_length=50)
     Marca = models.ForeignKey(Marca, on_delete=models.CASCADE)
     Categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE)
@@ -37,7 +37,7 @@ class Producto(models.Model):
         return self.Nombre+" "+self.Formato.Unidades+" "+self.Formato.Descripcion
 
 class Proveedor(models.Model):
-    Codigo = models.IntegerField(primary_key=True)
+    Codigo = models.AutoField(primary_key=True)
     Rut = models.IntegerField(default=0)
     Nombre = models.CharField(max_length=50)
     Telefono = models.IntegerField(default=0)

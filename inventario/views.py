@@ -138,7 +138,7 @@ def ingreso_new(request, pk):
         form = IngresoForm(request.POST)
         if form.is_valid():
             ingreso = form.save(commit=False)
-            ingreso.Codigo = Pedido.objects.get(Codigo=pk)
+            ingreso.Pedido = Pedido.objects.get(Codigo=pk)
             ingreso.stockp()
             ingreso.save()
             return redirect('pedido_detail', pk=ingreso.Pedido.Codigo)
